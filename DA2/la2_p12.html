@@ -1,0 +1,200 @@
+```html
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Student Registration Portal</title>
+
+<style>
+
+body{
+background-color:skyblue;
+font-family:Arial;
+margin:0;
+}
+
+/* Heading */
+
+h1{
+text-align:center;
+color:#002366;
+padding:20px;
+}
+
+/* Navigation */
+
+.nav{
+text-align:center;
+margin-bottom:20px;
+}
+
+.nav a{
+background-color:#002366;
+color:white;
+padding:10px 15px;
+margin:5px;
+text-decoration:none;
+border-radius:6px;
+display:inline-block;
+}
+
+/* Section blocks */
+
+.section{
+background-color:#002366;
+color:white;
+margin:20px auto;
+padding:20px;
+width:70%;
+border-radius:8px;
+}
+
+/* Inputs */
+
+input, select{
+width:95%;
+padding:8px;
+margin:8px 0;
+border-radius:4px;
+border:none;
+}
+
+/* Button */
+
+button{
+padding:10px 20px;
+background:white;
+color:#002366;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-weight:bold;
+}
+
+button:hover{
+background:#ddd;
+}
+
+</style>
+
+<script>
+
+function submitForm(){
+alert("Form Submitted Successfully");
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h1>Student Registration Portal</h1>
+
+<div class="nav">
+<a href="#personal">Personal Information</a>
+<a href="#academic">Academic Details</a>
+<a href="#address">Address Information</a>
+<a href="#account">Account Credentials</a>
+</div>
+
+<form onsubmit="submitForm()">
+
+<!-- Personal Information -->
+
+<div class="section" id="personal">
+
+<h2>Personal Information</h2>
+
+Full Name<br>
+<input type="text">
+
+Date of Birth<br>
+<input type="date">
+
+Gender<br>
+<select>
+<option>Male</option>
+<option>Female</option>
+<option>Other</option>
+</select>
+
+Email Address<br>
+<input type="email">
+
+Mobile Number<br>
+<input type="text">
+
+</div>
+
+<!-- Academic Details -->
+
+<div class="section" id="academic">
+
+<h2>Academic Details</h2>
+
+Register Number<br>
+<input type="text">
+
+Degree Program<br>
+<input type="text">
+
+Department<br>
+<input type="text">
+
+Year of Study<br>
+<input type="text">
+
+</div>
+
+<!-- Address Information -->
+
+<div class="section" id="address">
+
+<h2>Address Information</h2>
+
+Door Number<br>
+<input type="text">
+
+Street Name<br>
+<input type="text">
+
+City<br>
+<input type="text">
+
+State<br>
+<input type="text">
+
+Pincode<br>
+<input type="text">
+
+</div>
+
+<!-- Account Credentials -->
+
+<div class="section" id="account">
+
+<h2>Account Credentials</h2>
+
+Username<br>
+<input type="text">
+
+Password<br>
+<input type="password">
+
+Confirm Password<br>
+<input type="password">
+
+<br><br>
+
+<button type="submit">Submit</button>
+
+</div>
+
+</form>
+
+</body>
+
+</html>
+```
