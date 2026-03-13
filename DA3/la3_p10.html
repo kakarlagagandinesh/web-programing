@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Checkbox Selection</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Select Subjects</h2>
+
+<input type="checkbox" name="subject" value="Math"> Math <br>
+<input type="checkbox" name="subject" value="Physics"> Physics <br>
+<input type="checkbox" name="subject" value="Chemistry"> Chemistry <br>
+<input type="checkbox" name="subject" value="Biology"> Biology <br><br>
+
+<button onclick="showSubjects()">Show Selected Subjects</button>
+
+<p id="result"></p>
+
+<script>
+
+function showSubjects(){
+
+var subjects = document.getElementsByName("subject");
+var selected = [];
+var count = 0;
+
+for(var i = 0; i < subjects.length; i++){
+
+if(subjects[i].checked){
+
+selected.push(subjects[i].value);
+count++;
+
+}
+
+}
+
+document.getElementById("result").innerHTML =
+"Selected Subjects (" + count + "): " + selected.join(", ");
+
+}
+
+</script>
+
+</body>
+</html>

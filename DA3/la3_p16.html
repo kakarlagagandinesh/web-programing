@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Overlapping Image Gallery</title>
+
+<style>
+
+.gallery{
+position: relative;
+width: 400px;
+height: 300px;
+border: 2px solid black;
+}
+
+.gallery img{
+position: absolute;
+width: 150px;
+height: 100px;
+cursor: pointer;
+}
+
+#img1{ top:20px; left:20px; }
+#img2{ top:60px; left:80px; }
+#img3{ top:100px; left:140px; }
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Overlapping Image Gallery</h2>
+
+<div class="gallery">
+
+<img src="https://picsum.photos/200/100?1" id="img1" onclick="bringFront(this)">
+<img src="https://picsum.photos/200/100?2" id="img2" onclick="bringFront(this)">
+<img src="https://picsum.photos/200/100?3" id="img3" onclick="bringFront(this)">
+
+</div>
+
+<script>
+
+var topIndex = 1;
+
+function bringFront(img){
+
+img.style.zIndex = ++topIndex;
+
+}
+
+</script>
+
+</body>
+</html>

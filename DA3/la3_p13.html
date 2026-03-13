@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Product Order Form</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Product Order Form</h2>
+
+<form id="orderForm">
+
+<fieldset>
+<legend>Fruits</legend>
+
+<input type="checkbox" class="item" value="50"> Apple (₹50)<br>
+<input type="checkbox" class="item" value="30"> Banana (₹30)<br>
+
+</fieldset>
+
+<br>
+
+<fieldset>
+<legend>Drinks</legend>
+
+<input type="checkbox" class="item" value="40"> Juice (₹40)<br>
+<input type="checkbox" class="item" value="20"> Soda (₹20)<br>
+
+</fieldset>
+
+<br>
+
+<fieldset>
+<legend>Snacks</legend>
+
+<input type="checkbox" class="item" value="60"> Sandwich (₹60)<br>
+<input type="checkbox" class="item" value="35"> Chips (₹35)<br>
+
+</fieldset>
+
+<br>
+
+<button type="button" onclick="calculateTotal()">Calculate Total</button>
+
+</form>
+
+<p id="result"></p>
+
+<script>
+
+function calculateTotal(){
+
+let items = document.querySelectorAll(".item");
+let total = 0;
+
+for (let item of items){
+
+if(item.checked){
+
+total = total + parseFloat(item.value);
+
+}
+
+}
+
+document.getElementById("result").innerHTML =
+"Total Price: ₹" + total;
+
+}
+
+</script>
+
+</body>
+</html>

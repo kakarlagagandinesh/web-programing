@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Simple Calculator</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Simple Calculator</h2>
+
+First Number:
+<input type="number" id="num1" step="any"><br><br>
+
+Second Number:
+<input type="number" id="num2" step="any"><br><br>
+
+<button onclick="calculate('+')">Add</button>
+<button onclick="calculate('-')">Subtract</button>
+<button onclick="calculate('*')">Multiply</button>
+<button onclick="calculate('/')">Divide</button>
+
+<p id="result"></p>
+
+<script>
+
+function calculate(operation){
+
+var number1 = parseFloat(document.getElementById("num1").value);
+var number2 = parseFloat(document.getElementById("num2").value);
+
+var result;
+
+switch(operation){
+
+case '+':
+result = number1 + number2;
+break;
+
+case '-':
+result = number1 - number2;
+break;
+
+case '*':
+result = number1 * number2;
+break;
+
+case '/':
+if(number2 == 0){
+document.getElementById("result").innerHTML = "Division by zero is not allowed";
+return;
+}
+result = number1 / number2;
+break;
+
+}
+
+document.getElementById("result").innerHTML = "Result: " + result;
+
+}
+
+</script>
+
+</body>
+</html>

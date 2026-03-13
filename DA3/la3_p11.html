@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Simple Interest Calculator</title>
+
+<!-- External JS concept (simulated in same file) -->
+<script>
+
+function calculateSI(){
+
+var P = parseFloat(document.getElementById("principal").value);
+var R = parseFloat(document.getElementById("rate").value);
+var T = parseFloat(document.getElementById("time").value);
+
+var SI = (P * R * T) / 100;
+
+document.getElementById("result").innerHTML =
+"Simple Interest = " + SI;
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Simple Interest Calculator</h2>
+
+Principal Amount:
+<input type="text" id="principal"><br><br>
+
+Rate of Interest:
+<input type="text" id="rate"><br><br>
+
+Time (Years):
+<input type="text" id="time"><br><br>
+
+<button onclick="calculateSI()">Calculate Simple Interest</button>
+
+<p id="result"></p>
+
+</body>
+</html>

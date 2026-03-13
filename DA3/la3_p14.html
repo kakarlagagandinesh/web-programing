@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Text Styling Application</title>
+
+<style>
+
+.bold{
+font-weight: bold;
+}
+
+.italic{
+font-style: italic;
+}
+
+.smallcaps{
+font-variant: small-caps;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Text Styling Application</h2>
+
+<p id="message">Welcome to JavaScript Text Styling Demo</p>
+
+<fieldset>
+
+<legend>Choose Style</legend>
+
+<button onclick="applyStyle('bold')">Bold</button>
+
+<button onclick="applyStyle('italic')">Italic</button>
+
+<button onclick="applyStyle('smallcaps')">Small Caps</button>
+
+<button onclick="applyStyle('bold italic')">Bold + Italic</button>
+
+</fieldset>
+
+<script>
+
+function applyStyle(style){
+
+document.getElementById("message").className = style;
+
+}
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Email Address Generator</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Email Address Generator</h2>
+
+<form id="emailForm">
+
+First Name:
+<input type="text" name="fname"><br><br>
+
+Last Name:
+<input type="text" name="lname"><br><br>
+
+<input type="button" value="Generate Email" onclick="generateEmail(this.form)">
+
+</form>
+
+<br>
+
+<p id="result"></p>
+
+<script>
+
+function generateEmail(form){
+
+var first = form.elements["fname"].value;
+var last = form.elements["lname"].value;
+
+var email = first + "." + last + "@park.edu";
+
+document.getElementById("result").innerHTML = "Generated Email: " + email;
+
+form.reset();
+
+form.elements["fname"].focus();
+
+}
+
+</script>
+
+</body>
+</html>

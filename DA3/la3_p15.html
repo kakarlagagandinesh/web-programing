@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Font Customization Tool</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Dynamic Font Customization Tool</h2>
+
+<p id="text">Customize this text using the controls below.</p>
+
+<fieldset>
+
+<legend>Font Size</legend>
+
+<input type="range" min="10" max="50" value="20" 
+oninput="changeSize(this.value)">
+
+</fieldset>
+
+<br>
+
+<fieldset>
+
+<legend>Text Color</legend>
+
+<input type="color" onchange="changeColor(this.value)">
+
+</fieldset>
+
+<br>
+
+<fieldset>
+
+<legend>Background Color</legend>
+
+<input type="color" onchange="changeBackground(this.value)">
+
+</fieldset>
+
+<script>
+
+function changeSize(size){
+
+document.getElementById("text").style.fontSize = size + "px";
+
+}
+
+function changeColor(color){
+
+document.getElementById("text").style.color = color;
+
+}
+
+function changeBackground(color){
+
+document.getElementById("text").style.backgroundColor = color;
+
+}
+
+</script>
+
+</body>
+</html>

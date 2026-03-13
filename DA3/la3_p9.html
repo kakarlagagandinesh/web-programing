@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Radio Button Example</title>
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<h2>Select a Color</h2>
+
+<input type="radio" name="color" value="Red"> Red <br>
+<input type="radio" name="color" value="Green"> Green <br>
+<input type="radio" name="color" value="Blue"> Blue <br><br>
+
+<button onclick="showColor()">Show Selected Color</button>
+
+<p id="result"></p>
+
+<script>
+
+function showColor(){
+
+var colors = document.getElementsByName("color");
+var selectedColor = "";
+
+for(var i=0; i<colors.length; i++){
+
+if(colors[i].checked){
+
+selectedColor = colors[i].value;
+
+}
+
+}
+
+document.getElementById("result").innerHTML =
+"Selected Color: " + selectedColor;
+
+}
+
+</script>
+
+</body>
+</html>
