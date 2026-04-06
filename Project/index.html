@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-card">
+        <h2 style="color: #2575fc; margin-bottom: 5px;">VIT UNIVERSITY</h2>
+        <h4 style="text-align: center; color: #555; margin-bottom: 5px;">Project by K.Gagan Dinesh</h4>
+        <h5 style="text-align: center; color: #888; margin-bottom: 20px;">Reg Num: 24BDS0037</h5>
+        
+        <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+
+        <h2>Enter Student Email</h2>
+        <br>
+        <p style="text-align: center; color: gray;">Only @vitstudent.ac.in emails are allowed.</p>
+        <br>
+        <input type="email" id="email" placeholder="example@vitstudent.ac.in" style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+        <p id="error" style="color: red; text-align: center; display: none; margin-top: 10px;">Please use a valid @vitstudent.ac.in email.</p>
+        
+        <button class="btn" onclick="startQuiz()" style="width: 100%; border: none; cursor: pointer;">Start Quiz</button>
+    </div>
+</div>
+
+<script>
+function startQuiz(){
+    const email = document.getElementById("email").value.trim();
+    const error = document.getElementById("error");
+    
+    // Check if email ends with @vitstudent.ac.in
+    if(!email.toLowerCase().endsWith("@vitstudent.ac.in")){
+        error.innerText = "Please use a valid @vitstudent.ac.in email.";
+        error.style.display = "block";
+        return;
+    }
+
+    // Check if email already took the quiz
+    let submissions = JSON.parse(localStorage.getItem("quiz_submissions")) || [];
+    let hasTakenQuiz = submissions.some(s => s.email.toLowerCase() === email.toLowerCase());
+    
+    if(hasTakenQuiz) {
+        error.innerText = "This email has already submitted the quiz!";
+        error.style.display = "block";
+        return;
+    }
+    
+    error.style.display = "none";
+    localStorage.setItem("email", email);
+    window.location.href = "quiz.html";
+}
+</script>
+
+</body>
+</html>

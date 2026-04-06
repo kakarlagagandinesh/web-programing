@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .quiz-container { max-width: 800px; margin: 20px auto; padding: 30px; }
+        .quiz-card { margin-bottom: 25px; padding: 20px; border-radius: 12px; background: #f9f9f9; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .options-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        label { margin: 0; cursor: pointer; display: block; }
+        label span { display: block; padding: 12px 15px; border-radius: 8px; background: #fff; border: 1px solid #e0e0e0; transition: all 0.2s; }
+        label:hover span { background: #e3f2fd; border-color: #90caf9; }
+        input[type="radio"]:checked + span { background: #2575fc; color: white; border-color: #2575fc; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>Web Development Quiz</h2>
+    <div class="sub">Please answer all 10 questions.</div>
+
+    <form id="quizForm">
+        <div id="questions-container"></div>
+        <button class="btn" type="button" onclick="submitQuiz()" style="width: 100%; border: none; cursor: pointer; margin-top: 20px; font-size: 16px;">Submit Quiz</button>
+    </form>
+</div>
+
+<script>
+let currentQuestions = [];
+
+window.onload = function() {
+    const email = localStorage.getItem("email");
+    if(!email) {
+        window.location.href = "index.html";
+        return;
+    }
+    
+    // Check if they already submitted
+    let submissions = JSON.parse(localStorage.getItem("quiz_submissions")) || [];
+    let hasTakenQuiz = submissions.some(s => s.email.toLowerCase() === email.toLowerCase());
+    if(hasTakenQuiz) {
+        window.location.href = "result.html"; // send them to results instead
+        return;
+    }
+
+    const container = document.getElementById("questions-container");
+    container.innerHTML = "<p style='text-align:center; padding: 20px;'>Loading random questions...</p>";
+    
+    // Fetch 10 random Computer Science questions
+    fetch("https://opentdb.com/api.php?amount=10&category=18&type=multiple")
+        .then(res => res.json())
+        .then(data => {
+            currentQuestions = data.results.map(item => {
+                let options = [...item.incorrect_answers, item.correct_answer];
+                options.sort(() => Math.random() - 0.5); // shuffle options
+                return {
+                    q: decodeHTML(item.question),
+                    options: options.map(decodeHTML),
+                    answer: options.indexOf(item.correct_answer)
+                };
+            });
+            renderQuestions();
+        })
+        .catch(err => {
+            container.innerHTML = "<p style='text-align:center; color:red;'>Error loading questions. Please check your internet connection and refresh.</p>";
+        });
+};
+
+// Helper to decode HTML entities from the API
+function decodeHTML(html) {
+    let txt = document.createElement("textarea");
+    txt.innerHTML = html;
+    return txt.value;
+}
+
+function renderQuestions() {
+    const container = document.getElementById("questions-container");
+    let html = "";
+    
+    currentQuestions.forEach((item, index) => {
+        const letters = ['a', 'b', 'c', 'd'];
+        let optionsHtml = item.options.map((opt, optIndex) => `
+            <label>
+                <input type="radio" name="q${index}" value="${optIndex}">
+                <span>${letters[optIndex]}) ${opt.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>
+            </label>
+        `).join("");
+        
+        html += `
+        <div class="quiz-card">
+            <p style="font-size: 1.1em; margin-bottom: 10px;"><strong>Q${index+1}. ${item.q}</strong></p>
+            <div class="options-grid">
+                ${optionsHtml}
+            </div>
+        </div>`;
+    });
+    
+    container.innerHTML = html;
+}
+
+function submitQuiz(){
+    if(currentQuestions.length === 0) return; // Not loaded yet
+    
+    let score = 0;
+    
+    currentQuestions.forEach((item, index) => {
+        let selected = document.querySelector(`input[name="q${index}"]:checked`);
+        if(selected && parseInt(selected.value) === item.answer) {
+            score++;
+        }
+    });
+
+    const email = localStorage.getItem("email");
+    if(!email) {
+        alert("Session expired. Please log in again.");
+        window.location.href = "index.html";
+        return;
+    }
+
+    let date = new Date().toLocaleString();
+    let submissions = JSON.parse(localStorage.getItem("quiz_submissions")) || [];
+    submissions.push({ email: email, score: score, maxScore: currentQuestions.length, date: date });
+    localStorage.setItem("quiz_submissions", JSON.stringify(submissions));
+
+    localStorage.setItem("score", score);
+    localStorage.setItem("maxScore", currentQuestions.length);
+    window.location.href = "result.html";
+}
+</script>
+
+</body>
+</html>

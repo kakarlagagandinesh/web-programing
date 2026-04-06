@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .result-box {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            margin-top: 15px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+        .attempt-item {
+            padding: 10px;
+            background: #f4f4f4;
+            margin-bottom: 8px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .attempt-item strong {
+            color: #2575fc;
+        }
+    </style>
+</head>
+<body>
+
+<div class="profile-container">
+    <div class="profile-card" style="width: 600px;">
+        <h2>Quiz Result</h2>
+        <br>
+        <h3 id="score" style="text-align: center; color: #6a11cb; font-size: 28px; margin: 20px 0;"></h3>
+        
+        <br>
+        <h3 style="text-align: center;">Your Previous Attempts</h3>
+        
+        <!-- The "another box" for previous responses -->
+        <div class="result-box">
+            <ul id="history" style="list-style-type: none; padding: 0; margin: 0;"></ul>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn" onclick="window.location.href='index.html'" style="flex: 1; border: none; cursor: pointer;">Try Again / Log Out</button>
+            <button class="btn" onclick="window.location.href='admin.html'" style="flex: 1; background: #333; border: none; cursor: pointer;">View Leaderboard</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const scoreVal = localStorage.getItem("score") || "0";
+    const maxScoreVal = localStorage.getItem("maxScore") || "10";
+    const email = localStorage.getItem("email");
+    
+    if(!email) window.location.href = "index.html";
+
+    document.getElementById("score").innerText = `Your Score: ${scoreVal} / ${maxScoreVal}`;
+
+    // Get previous attempts
+    let submissions = JSON.parse(localStorage.getItem("quiz_submissions")) || [];
+    let userAttempts = submissions.filter(s => s.email === email);
+    
+    let list = document.getElementById("history");
+    
+    if(userAttempts.length === 0){
+        list.innerHTML = "<li style='text-align:center; color:gray; padding: 20px;'>No previous attempts</li>";
+    } else {
+        // Show attempts
+        userAttempts.slice().reverse().forEach((a, index) => {
+            let maxS = a.maxScore || 2; // Provide fallback to older formats if any
+            let li = document.createElement("li");
+            li.className = "attempt-item";
+            li.innerHTML = `<span><small style="color: gray;">#${userAttempts.length - index}</small> &nbsp; ${a.date}</span> <strong>${a.score} / ${maxS}</strong>`;
+            list.appendChild(li);
+        });
+    }
+</script>
+
+</body>
+</html>
