@@ -1,0 +1,210 @@
+"<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Country Explorer</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+.container{
+width:90%;
+margin:auto;
+}
+
+input{
+padding:8px;
+width:250px;
+}
+
+button{
+padding:8px 15px;
+margin-left:5px;
+background:#002366;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.card img{
+width:100px;
+height:60px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+// Utility Function
+const fetchCountries = async (query) => {
+
+try{
+
+const response = await fetch(
+"https://restcountries.com/v3.1/name/" + query
+);
+
+const data = await response.json();
+
+return data;
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+// Header Component
+function Header(){
+return <h2>Country Explorer</h2>;
+}
+
+// Search Component
+function Search({onSearch}){
+
+const [query,setQuery] = React.useState("");
+
+return(
+
+<div>
+
+<input
+type="text"
+placeholder="Search Country"
+value={query}
+onChange={(e)=>setQuery(e.target.value)}
+/>
+
+<button onClick={()=>onSearch(query)}>Search</button>
+
+</div>
+
+);
+
+}
+
+// Country Card Component
+function CountryCard({country}){
+
+return(
+
+<div className="card">
+
+<img src={country.flags.png}/>
+
+<h4>{country.name.common}</h4>
+
+<p>Capital: {country.capital ? country.capital[0] : "N/A"}</p>
+
+<p>Population: {country.population}</p>
+
+<p>Region: {country.region}</p>
+
+</div>
+
+);
+
+}
+
+// Country List Component
+function CountryList({countries}){
+
+if(!countries.length) return <p>No countries found</p>;
+
+return(
+
+<div className="grid">
+
+{countries.map((country,index)=>(
+<CountryCard key={index} country={country}/>
+))}
+
+</div>
+
+);
+
+}
+
+// Main App
+function App(){
+
+const [countries,setCountries] = React.useState([]);
+
+const handleSearch = async (query)=>{
+
+if(!query) return;
+
+const data = await fetchCountries(query);
+
+setCountries(data);
+
+};
+
+return(
+
+<div className="container">
+
+<Header/>
+
+<Search onSearch={handleSearch}/>
+
+<CountryList countries={countries}/>
+
+</div>
+
+);
+
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<App/>);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+"

@@ -1,0 +1,62 @@
+"<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>React Welcome App</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Welcome(props){
+
+const style = {
+color: "blue",
+backgroundColor: "#f0f0f0",
+padding: "15px",
+borderRadius: "5px"
+};
+
+return (
+
+<div style={style}>
+<h2>Hello {props.name}!</h2>
+
+<p>Welcome to React Application from {props.city}.</p>
+
+<p>This is a simple React functional component using props and inline styling.</p>
+
+</div>
+
+);
+
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<Welcome name="Gagan Dinesh" city="Chennai" />);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+"

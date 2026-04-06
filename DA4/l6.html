@@ -1,0 +1,203 @@
+"<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>React Weather Dashboard</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+.container{
+width:400px;
+margin:auto;
+padding:20px;
+background:white;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input{
+width:70%;
+padding:8px;
+margin:10px;
+}
+
+button{
+padding:8px 15px;
+background:#002366;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.weather-box{
+margin-top:20px;
+padding:15px;
+background:#eef2f7;
+border-radius:8px;
+}
+
+.error{
+color:red;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+// Utility Function
+const fetchWeather = async (city) => {
+
+const apiKey = "YOUR_API_KEY";  // <-- Put your API key here
+
+try{
+
+const response = await fetch(
+`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+);
+
+const data = await response.json();
+
+if(data.cod !== 200){
+throw new Error("City not found");
+}
+
+return {
+city: data.name,
+temp: data.main.temp,
+description: data.weather[0].description,
+humidity: data.main.humidity,
+wind: data.wind.speed
+};
+
+}catch(error){
+
+return { error: error.message };
+
+}
+
+};
+
+// Header Component
+function Header(){
+return <h2>Weather Dashboard</h2>;
+}
+
+// Search Component
+function Search({onSearch}){
+
+const [city,setCity] = React.useState("");
+
+return(
+
+<div>
+
+<input
+type="text"
+placeholder="Enter City Name"
+value={city}
+onChange={(e)=>setCity(e.target.value)}
+/>
+
+<button onClick={()=>onSearch(city)}>Search</button>
+
+</div>
+
+);
+
+}
+
+// Dashboard Component
+function Dashboard({weather}){
+
+if(!weather) return null;
+
+if(weather.error){
+return <p className="error">{weather.error}</p>;
+}
+
+return(
+
+<div className="weather-box">
+
+<h3>{weather.city}</h3>
+
+<p>Temperature: {weather.temp} °C</p>
+
+<p>Weather: {weather.description}</p>
+
+<p>Humidity: {weather.humidity}%</p>
+
+<p>Wind Speed: {weather.wind} m/s</p>
+
+</div>
+
+);
+
+}
+
+// Main App
+function App(){
+
+const [weather,setWeather] = React.useState(null);
+
+const handleSearch = async (city)=>{
+
+const data = await fetchWeather(city);
+
+setWeather(data);
+
+};
+
+return(
+
+<div className="container">
+
+<Header/>
+
+<Search onSearch={handleSearch}/>
+
+<Dashboard weather={weather}/>
+
+</div>
+
+);
+
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<App/>);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+"

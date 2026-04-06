@@ -1,0 +1,215 @@
+"
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Book Explorer</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+text-align:center;
+}
+
+.container{
+width:90%;
+margin:auto;
+}
+
+input{
+padding:8px;
+width:250px;
+}
+
+button{
+padding:8px 15px;
+margin-left:5px;
+background:#002366;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+.card img{
+width:120px;
+height:160px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+// Utility Function
+const fetchBooks = async (query) => {
+
+try{
+
+const response = await fetch(
+"https://www.googleapis.com/books/v1/volumes?q=" + query
+);
+
+const data = await response.json();
+
+return data.items || [];
+
+}catch(error){
+
+return [];
+
+}
+
+};
+
+// Header Component
+function Header(){
+return <h2>Book Explorer</h2>;
+}
+
+// Search Component
+function Search({onSearch}){
+
+const [query,setQuery] = React.useState("");
+
+return(
+
+<div>
+
+<input
+type="text"
+placeholder="Search Books"
+value={query}
+onChange={(e)=>setQuery(e.target.value)}
+/>
+
+<button onClick={()=>onSearch(query)}>Search</button>
+
+</div>
+
+);
+
+}
+
+// Book Card Component
+function BookCard({book}){
+
+const info = book.volumeInfo || {};
+
+return(
+
+<div className="card">
+
+<img 
+src={info.imageLinks ? info.imageLinks.thumbnail : 
+"https://via.placeholder.com/120x160"}
+/>
+
+<h4>{info.title || "No Title"}</h4>
+
+<p>Author: {info.authors ? info.authors.join(", ") : "Unknown"}</p>
+
+<p>Publisher: {info.publisher || "Unknown"}</p>
+
+<p>Year: {info.publishedDate || "N/A"}</p>
+
+</div>
+
+);
+
+}
+
+// Book List Component
+function BookList({books}){
+
+if(!books.length) return <p>No books found</p>;
+
+return(
+
+<div className="grid">
+
+{books.map((book,index)=>(
+<BookCard key={index} book={book}/>
+))}
+
+</div>
+
+);
+
+}
+
+// Main App
+function App(){
+
+const [books,setBooks] = React.useState([]);
+
+const handleSearch = async (query)=>{
+
+if(!query) return;
+
+const data = await fetchBooks(query);
+
+setBooks(data);
+
+};
+
+return(
+
+<div className="container">
+
+<Header/>
+
+<Search onSearch={handleSearch}/>
+
+<BookList books={books}/>
+
+</div>
+
+);
+
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<App/>);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+"

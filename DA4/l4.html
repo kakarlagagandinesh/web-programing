@@ -1,0 +1,142 @@
+"<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>React Grade Calculator</title>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+<style>
+
+.container{
+width:350px;
+margin:auto;
+padding:20px;
+border:2px solid #333;
+border-radius:10px;
+background:#f4f4f4;
+text-align:center;
+}
+
+input{
+width:90%;
+padding:8px;
+margin:5px;
+}
+
+button{
+padding:10px;
+margin:10px;
+background:#002366;
+color:white;
+border:none;
+border-radius:5px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h3>Name: K.GAGAN DINESH</h3>
+<h3>Register Number: 24BDS0037</h3>
+
+<hr>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function GradeCalculator(){
+
+const [mark1,setMark1] = React.useState("");
+const [mark2,setMark2] = React.useState("");
+const [mark3,setMark3] = React.useState("");
+const [average,setAverage] = React.useState(0);
+const [grade,setGrade] = React.useState("");
+
+const calculateGrade = () => {
+
+const avg = (Number(mark1) + Number(mark2) + Number(mark3)) / 3;
+
+setAverage(avg.toFixed(2));
+
+let g = "";
+
+if(avg >= 90){
+g = "A Grade";
+}
+else if(avg >= 75){
+g = "B Grade";
+}
+else if(avg >= 60){
+g = "C Grade";
+}
+else if(avg >= 50){
+g = "D Grade";
+}
+else{
+g = "Fail";
+}
+
+setGrade(g);
+
+};
+
+return(
+
+<div className="container">
+
+<h2>Grade Calculator</h2>
+
+<input
+type="number"
+placeholder="Enter Subject 1 Marks"
+value={mark1}
+onChange={(e)=>setMark1(e.target.value)}
+/>
+
+<input
+type="number"
+placeholder="Enter Subject 2 Marks"
+value={mark2}
+onChange={(e)=>setMark2(e.target.value)}
+/>
+
+<input
+type="number"
+placeholder="Enter Subject 3 Marks"
+value={mark3}
+onChange={(e)=>setMark3(e.target.value)}
+/>
+
+<button onClick={calculateGrade}>Calculate Grade</button>
+
+<h3>Average: {average}</h3>
+
+<h3>Grade: {grade}</h3>
+
+</div>
+
+);
+
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+
+root.render(<GradeCalculator/>);
+
+</script>
+
+</body>
+
+</html>
+
+
+
+
+"
